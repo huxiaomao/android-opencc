@@ -14,9 +14,11 @@ Java_com_zqc_opencc_android_lib_ChineseConverter_convert(
     opencc::Config config;
     opencc::ConverterPtr converter = config.NewFromFile(std::string(absoluteDataFolderPath) + "/" + std::string(configFile));
 
+    jstring  data = env->NewStringUTF(converter->Convert(text).c_str());
+
     env->ReleaseStringUTFChars(text_, text);
     env->ReleaseStringUTFChars(configFile_, configFile);
     env->ReleaseStringUTFChars(absoluteDataFolderPath_, absoluteDataFolderPath);
 
-    return env->NewStringUTF(converter->Convert(text).c_str());
+    return data;
 }

@@ -1,0 +1,28 @@
+apply plugin: 'maven'
+
+def artifact = new Properties()
+artifact.load(new FileInputStream("$projectDir/deploy.settings"))
+
+if (artifact.version == null) {
+    artifact.version = '1.2.1'
+}
+
+if (System.getenv('BINTRAY_VERSION') != null) {
+    artifact.version = System.getenv('BINTRAY_VERSION')
+}
+
+version = artifact.version
+group = artifact.groupId
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://repo.boox.com/repository/" + artifact.repo + "/") {
+                authentication(userName: "kbox", password: "305b0d80505bc8a843c995f3a4078c77")
+                pom.groupId = artifact.groupId
+                pom.artifactId = artifact.id
+                pom.version = artifact.version
+            }
+        }
+    }
+}

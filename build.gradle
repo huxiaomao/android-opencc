@@ -17,6 +17,17 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven {
+            url "http://repo.boox.com/repository/maven-partner/"
+            credentials {
+                // set your user and api key at ~/.gradle/gradle.properties
+                // in the form of:
+                // onyxNexusUser=YOUR_USER_NAME
+                // onyxNexusPassword=YOUR_PASSWORD
+                username = "kbox"
+                password = "305b0d80505bc8a843c995f3a4078c77"
+            }
+        }
     }
 }
 
